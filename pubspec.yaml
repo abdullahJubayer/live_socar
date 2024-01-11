@@ -43,7 +43,13 @@ dependencies:
 
   # for localization
   intl: ^0.18.1
+  firebase_core: ^2.24.2
   # for localization
+
+
+  # for icon
+  font_awesome_flutter: ^10.5.0
+  # for icon
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +57,9 @@ dev_dependencies:
 
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
+  json_serializable: ^6.7.1
+  freezed: ^2.4.2
 
 
 # The following section is specific to Flutter packages.
