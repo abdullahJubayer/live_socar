@@ -33,6 +33,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool showClearIcon;
   final int maxLines;
   final int? maxLength;
+  final double? borderRadius;
   final void Function(String)? onFieldSubmitted;
   final List<TextInputFormatter>? inputFormatters;
   final Widget? textField;
@@ -72,6 +73,7 @@ class CustomTextFormField extends StatefulWidget {
       this.showClearIcon = false,
       this.maxLines = 1,
       this.maxLength,
+      this.borderRadius,
       this.onFieldSubmitted,
       this.inputFormatters,
       this.textField,
@@ -180,9 +182,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         TextSelection(baseOffset: 0, extentOffset: text.length);
   }
 
-  OutlineInputBorder roundInputBorder(bool focused, ThemeData theme) {
+  OutlineInputBorder roundInputBorder(bool focused, ThemeData theme,double borderRadius) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(borderRadius),
       borderSide: BorderSide(
           color: focused ? CustomColors.primary : theme.colorScheme.outline,
           width: focused ? 2 : 1),
@@ -207,13 +209,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         labelText: widget.labelText,
         hintText: widget.hintText,
         border: widget.type == CustomTextFormFieldType.rounded
-            ? roundInputBorder(false, theme)
+            ? roundInputBorder(false, theme,widget.borderRadius??0)
             : InputBorder.none,
         focusedBorder: widget.type == CustomTextFormFieldType.rounded
-            ? roundInputBorder(true, theme)
+            ? roundInputBorder(true, theme,widget.borderRadius??0)
             : InputBorder.none,
         enabledBorder: widget.type == CustomTextFormFieldType.rounded
-            ? roundInputBorder(false, theme)
+            ? roundInputBorder(false, theme,widget.borderRadius??0)
             : InputBorder.none,
         disabledBorder: widget.type == CustomTextFormFieldType.rounded
             ? null

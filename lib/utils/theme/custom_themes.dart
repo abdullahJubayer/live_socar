@@ -64,7 +64,7 @@ extension ThemeGetter on BuildContext {
 
 class CustomColors {
   static const background = Color(0xffF2F7FA);
-  static const primary = Color(0xff3685D3);
+  static const primary = Color(0xff143F6C);
   static const secondary = Color(0xff134D86);
   static const error = Color(0xffFF0000);
   static const shadow = Color(0xffF8F7F7);
