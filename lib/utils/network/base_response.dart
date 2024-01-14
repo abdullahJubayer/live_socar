@@ -1,6 +1,6 @@
 import 'dart:core';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:live_score/utils/network/response_state.dart';
+import 'package:live_score/utils/network/response_status.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 class BaseResponse<T> {
@@ -17,11 +17,11 @@ class BaseResponse<T> {
   int statusCode;
   bool flag;
 
-  ApiState get type {
+  Status get type {
     if (statusCode == 200 && flag) {
-      return ApiState.success;
+      return Status.success;
     } else {
-      return ApiState.error;
+      return Status.error;
     }
   }
 

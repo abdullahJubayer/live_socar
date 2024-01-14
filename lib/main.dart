@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:live_score/screen/registration/bloc/auth_bloc.dart';
 import 'package:live_score/screen/registration/ui/registration_screen.dart';
 import 'package:live_score/utils/di/inject_module.dart' as di;
 import 'package:live_score/utils/firebase/firebase_options.dart';
@@ -9,8 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_score/utils/theme/theme_cubit.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   di.setup();
-  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -22,6 +24,15 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (_) => EmailBloc(),
+        ),
+        BlocProvider(
+          create: (_) => PassBloc(),
+        ),
+        BlocProvider(
+          create: (_) => SignupBloc(),
+        )
+        ,BlocProvider(
           create: (_) => ThemeCubit()..getCurrentTheme(),
         ),
       ],

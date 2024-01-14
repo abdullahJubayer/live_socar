@@ -5,9 +5,8 @@ import 'dart:developer' as logdev;
 import 'base_response.dart';
 
 class ErrorHandler {
-  static BaseResponse<T> error<T>({Object? error, StackTrace? stackTrace}) {
+  static BaseResponse<T> error<T>({Object? error}) {
     logdev.log(error.toString());
-    logdev.log(stackTrace.toString());
 
     switch (error.runtimeType) {
       case DioException:

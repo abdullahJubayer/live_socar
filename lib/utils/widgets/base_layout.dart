@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../network/response_state.dart';
+import '../network/response_status.dart';
 import 'custom_app_bar.dart';
 
 class BaseLayout extends StatefulWidget {
@@ -14,7 +14,7 @@ class BaseLayout extends StatefulWidget {
     this.centerTitle = true,
   });
 
-  final ApiState? state;
+  final Status? state;
   final Widget child;
   final String title;
   final List<Widget>? actions;
