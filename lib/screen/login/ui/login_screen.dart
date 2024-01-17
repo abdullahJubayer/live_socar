@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:live_score/screen/registration/bloc/signup_bloc.dart';
-import 'package:live_score/screen/registration/data/model/sign_up_request.dart';
+import 'package:live_score/screen/login/bloc/login_bloc.dart';
+import 'package:live_score/screen/login/bloc/login_event.dart';
+import 'package:live_score/screen/login/data/model/login_request.dart';
 import 'package:live_score/utils/img_assets/img_assets.dart';
 import 'package:live_score/utils/network/response_status.dart';
 import 'package:live_score/utils/theme/custom_themes.dart';
@@ -11,16 +11,16 @@ import 'package:live_score/utils/theme/text_theme.dart';
 import 'package:live_score/utils/widgets/custom_button.dart';
 import 'package:live_score/utils/widgets/custom_text_form_field.dart';
 
-import '../bloc/signup_state.dart';
+import '../bloc/signin_state.dart';
 
-class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<RegistrationScreen> createState() => _RegistrationScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   bool _isEmailPassValid=false;
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
@@ -30,7 +30,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final bloc = context.read<SignupBloc>();
+    final bloc = context.read<LoginBloc>();
 
     return SafeArea(
       child: Scaffold(
@@ -51,17 +51,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 CustomSpacing.verticalSpace(space: 50),
                 Text('Email or Phone Number',style: theme.textTheme.boldFont,),
                 CustomSpacing.verticalSpace(space: 4),
-                BlocBuilder<SignupBloc,SignupState>(
+                BlocBuilder<LoginBloc,SignInState>(
                   buildWhen: (previous, current) {
                     return previous.isEmailValid != current.isEmailValid;
                   },
                   builder: (context, state) {
-                  return CustomTextFormField(showCursor: false, icon: FontAwesomeIcons.envelope,controller: emailTextController,type : CustomTextFormFieldType.rounded,borderRadius: 8,suffix : Icon(state.isEmailValid? FontAwesomeIcons.check: FontAwesomeIcons.exclamation),onChanged: (p0) => bloc.add(EmailChanged(p0)));
+                  return CustomTextFormField(showCursor: false, icon: FontAwesomeIcons.envelope,controller: emailTextController,type : CustomTextFormFieldType.rounded,borderRadius: 8,suffix : Icon(state.isEmailValid ? FontAwesomeIcons.check: FontAwesomeIcons.exclamation),onChanged: (p0) => bloc.add(EmailChanged(p0)));
                 },),
                 CustomSpacing.verticalSpace(space: 20),
                 Text('Password',style: theme.textTheme.boldFont,),
                 CustomSpacing.verticalSpace(space: 4),
-                BlocBuilder<SignupBloc,SignupState>(
+                BlocBuilder<LoginBloc,SignInState>(
                   buildWhen: (previous, current) {
                     return previous.isPassValid != current.isPassValid;
                   },
@@ -72,13 +72,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Align(alignment: Alignment.centerRight,child: Text('Forgot Password?',style: theme.textTheme.mediumFont.copyWith(color: CustomColors.button,fontSize: 12),)),
                 CustomSpacing.verticalSpace(space: 16),
                 MultiBlocListener(listeners: [
-                  BlocListener<SignupBloc, SignupState>(
+                  BlocListener<LoginBloc, SignInState>(
                     listener: (context, state) => setState(() {_isEmailPassValid=state.isEmailValid;}),
                   ),
-                  BlocListener<SignupBloc, SignupState>(
+                  BlocListener<LoginBloc, SignInState>(
                     listener: (context, state) => setState(() {_isEmailPassValid=state.isPassValid;}),
                   )
-                ], child: BlocBuilder<SignupBloc,SignupState>(builder: (context, state) => CustomButton(showProgressIndicator: state.loginUser?.state == ResponseState.loading,text: 'Sign up',color: CustomColors.primary,borderRadius: 16,onPressed: _isEmailPassValid ? _doSignup : null,))),
+                ], child: BlocBuilder<LoginBloc,SignInState>(builder: (context, state) => CustomButton(showProgressIndicator: state.loginUser?.state == ResponseState.loading,text: 'Sign up',color: CustomColors.primary,borderRadius: 16,onPressed: _isEmailPassValid ? _doSignup : null,))),
                 CustomSpacing.verticalSpace(space: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -96,6 +96,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   void _doSignup(){
-    context.read<SignupBloc>().add(RegistrationEvent(request: SignUpRequest(email: emailTextController.text,pass: passwordTextController.text)));
+    context.read<LoginBloc>().add(Login(request: LoginRequest(email: emailTextController.text,pass: passwordTextController.text)));
   }
 }

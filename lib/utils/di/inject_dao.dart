@@ -13,7 +13,7 @@ Future<void> setupDaoModule() async {
       Dio(
         BaseOptions(
           contentType: "application/json",
-          baseUrl: 'Base url',
+          baseUrl: 'https://apiv3.apifootball.com/',
         ),
       )..interceptors.add(
           CustomInterceptors(
@@ -28,7 +28,7 @@ Future<void> setupDaoModule() async {
       Dio(
         BaseOptions(
           contentType: "application/json",
-          baseUrl: 'Base url',
+          baseUrl: 'https://apiv3.apifootball.com/',
         ),
       )..interceptors.add(
           CustomInterceptors(

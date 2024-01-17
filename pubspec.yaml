@@ -51,6 +51,15 @@ dependencies:
   font_awesome_flutter: ^10.5.0
   # for icon
 
+  # for slider
+  carousel_slider: ^4.2.1
+  # for slider
+
+
+  # for bottom bar
+  salomon_bottom_bar: ^3.3.2
+  # for bottom bar
+
   equatable: ^2.0.5
   firebase_auth: ^4.16.0
 

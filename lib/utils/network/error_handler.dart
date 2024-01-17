@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'dart:developer' as logdev;
 
@@ -19,7 +20,14 @@ class ErrorHandler {
         );
         return newResponse;
 
-      default:
+      case FirebaseAuthException :
+        return BaseResponse<T>(
+          flag: false,
+          statusCode: 404,
+          message: (error as FirebaseAuthException).code == 'weak-password' ? 'The password provided is too weak.':  (error).code == 'email-already-in-use' ? 'The account already exists for that email.' : '',
+        );
+
+    default:
         return BaseResponse<T>(
           message: 'Something wrong!',
           statusCode: 404,

@@ -8,6 +8,7 @@ class BaseResponse<T> {
     this.data,
     this.statusCode = 404,
     this.message = '',
+    this.state=ResponseState.initial,
     this.flag = false,
   });
 
@@ -15,26 +16,29 @@ class BaseResponse<T> {
   T? data;
   String message;
   int statusCode;
+  ResponseState state;
   bool flag;
 
-  Status get type {
+  ResponseState get type {
     if (statusCode == 200 && flag) {
-      return Status.success;
+      return ResponseState.success;
     } else {
-      return Status.error;
+      return ResponseState.error;
     }
   }
 
-  BaseResponse copyWith({
+  BaseResponse<T> copyWith({
     T? data,
     String? message,
     int? statusCode,
+    ResponseState? state,
     bool? flag,
   }) {
     return BaseResponse(
       data: data ?? this.data,
       message: message ?? this.message,
       statusCode: statusCode ?? this.statusCode,
+      state: state ?? this.state,
       flag: flag ?? this.flag,
     );
   }
@@ -50,7 +54,4 @@ class BaseResponse<T> {
       data: json['data'] == null ? null : create(json['data']),
     );
   }
-
-  Map<String, dynamic> toJson() =>
-      {"message": message, "status": statusCode, "data": data};
 }

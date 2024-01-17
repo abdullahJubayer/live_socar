@@ -19,6 +19,10 @@ class CustomInterceptors extends InterceptorsWrapper {
         'Content-Type': 'application/json'
       });
     }
+    options.queryParameters.addAll({
+      'action': 'get_events',
+      'APIkey': '9068a60829167d28a7969a5faf580a464466528106ae15b2d2cb73b4f86369ad'
+    });
 
     logdev.log(
         'url: ${options.baseUrl}${options.path} headers: ${options.headers}  Q: ${options.queryParameters} Data: ${options.data}');
@@ -33,8 +37,7 @@ class CustomInterceptors extends InterceptorsWrapper {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    final data = response.data as Map;
-    data.putIfAbsent('status', () => response.statusCode);
+    final data = response.data;
     response.data = data;
 
     logdev.log('${response.realUri} ## ${jsonEncode(response.data)}');
