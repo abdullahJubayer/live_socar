@@ -12,5 +12,8 @@ abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @GET('')
-  Future<dynamic> getFixtures(@Query('from') String fromDate,@Query('to')String toDate,@Query('league_id') int leagueId);
+  Future<dynamic> getFixtures(@Query('action') String event,@Query('from') String fromDate,@Query('to')String toDate,@Query('league_id') int leagueId);
+
+  @GET('')
+  Future<dynamic> getStandings(@Query('league_id') int league_id,@Query('action') String event);
 }

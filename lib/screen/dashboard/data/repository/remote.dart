@@ -15,7 +15,7 @@ class DashboardRemoteDao implements DashboardRepository{
   Future<BaseResponse<List<FixturesResponse>>> getFixtures(FixturesRequest request) async{
     var response = BaseResponse<List<FixturesResponse>>();
     try{
-      var result = await restClient.getFixtures(request.fromDate!,request.toDate!,request.league_id!);
+      var result = await restClient.getFixtures('get_events',request.fromDate!,request.toDate!,request.league_id!);
       List<FixturesResponse> fixture = List<FixturesResponse>.from(result.map((model)=> FixturesResponse.fromJson(model)));
       response = BaseResponse<List<FixturesResponse>>(data: fixture,statusCode: 200,flag: true,state: ResponseState.success);
     }catch(e){

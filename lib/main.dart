@@ -5,6 +5,8 @@ import 'package:live_score/screen/dashboard/bloc/dashboard_event.dart';
 import 'package:live_score/screen/dashboard/data/model/fixtures_request.dart';
 import 'package:live_score/screen/dashboard/ui/dashboard_screen.dart';
 import 'package:live_score/screen/login/bloc/login_bloc.dart';
+import 'package:live_score/screen/point_table/bloc/standing_bloc.dart';
+import 'package:live_score/screen/point_table/ui/standing_screen.dart';
 import 'package:live_score/screen/registration/bloc/signup_bloc.dart';
 import 'package:live_score/utils/di/inject_module.dart' as di;
 import 'package:live_score/utils/firebase/firebase_options.dart';
@@ -39,6 +41,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => DashboardBloc(),
         ),
+        BlocProvider(
+          create: (_) => StandingBloc(),
+        ),
       ],
       child: BlocBuilder<ThemeCubit, AppTheme>(
         builder: (context, state) => MaterialApp(
@@ -46,7 +51,7 @@ class MyApp extends StatelessWidget {
           title: 'Live Score',
           theme: AppThemes.appThemeData[state],
           onGenerateRoute: onGenerateRoute,
-          home: const DashboardScreen(),
+          home: const StandingScreen(),
         ),
       ),
     );

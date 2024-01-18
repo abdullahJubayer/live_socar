@@ -20,7 +20,6 @@ class CustomInterceptors extends InterceptorsWrapper {
       });
     }
     options.queryParameters.addAll({
-      'action': 'get_events',
       'APIkey': '9068a60829167d28a7969a5faf580a464466528106ae15b2d2cb73b4f86369ad'
     });
 

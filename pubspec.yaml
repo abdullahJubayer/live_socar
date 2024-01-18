@@ -60,6 +60,11 @@ dependencies:
   salomon_bottom_bar: ^3.3.2
   # for bottom bar
 
+
+  # for table view
+  syncfusion_flutter_datagrid: ^24.1.46
+  # for table view
+
   equatable: ^2.0.5
   firebase_auth: ^4.16.0
 

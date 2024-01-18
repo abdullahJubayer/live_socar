@@ -20,15 +20,49 @@ class _RestClient implements RestClient {
 
   @override
   Future<dynamic> getFixtures(
+    String event,
     String fromDate,
     String toDate,
     int leagueId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
+      r'action': event,
       r'from': fromDate,
       r'to': toDate,
       r'league_id': leagueId,
+    };
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<dynamic> getStandings(
+    int league_id,
+    String event,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'league_id': league_id,
+      r'action': event,
     };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
